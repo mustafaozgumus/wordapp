@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { VocabularyItem } from '../types';
 import { Check, X, Volume2 } from 'lucide-react';
@@ -37,10 +38,10 @@ const WordList: React.FC<WordListProps> = ({ items, unknownIDs, toggleUnknown, i
                     ? 'hover:bg-slate-800/60' 
                     : 'hover:bg-white/60'
                 }`}>
-                  <div className="flex items-center gap-5">
+                  <div className="flex items-center gap-5 flex-1">
                     <button 
                         onClick={() => playAudio(item.en)}
-                        className={`w-11 h-11 flex items-center justify-center rounded-full transition-all shadow-sm hover:shadow-md active:scale-90 ${
+                        className={`w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-full transition-all shadow-sm hover:shadow-md active:scale-90 ${
                             isDarkMode
                             ? 'bg-slate-800 text-indigo-400 hover:bg-indigo-600 hover:text-white'
                             : 'bg-indigo-50 text-indigo-500 hover:bg-indigo-500 hover:text-white'
@@ -59,12 +60,19 @@ const WordList: React.FC<WordListProps> = ({ items, unknownIDs, toggleUnknown, i
                       <p className={`text-sm font-medium ${
                           isDarkMode ? 'text-slate-500' : 'text-slate-500'
                       }`}>{item.tr}</p>
+                      {item.example && (
+                        <p className={`text-sm italic mt-1 font-medium flex items-center gap-1.5 cursor-pointer hover:text-indigo-500 transition-colors ${
+                            isDarkMode ? 'text-slate-600' : 'text-slate-400'
+                        }`} onClick={() => playAudio(item.example!)}>
+                           <span className="text-[10px] opacity-50 bg-current px-1 rounded">Ex</span> "{item.example}"
+                        </p>
+                      )}
                     </div>
                   </div>
                   
                   <button
                     onClick={() => toggleUnknown(item.id)}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all border shadow-sm active:scale-95 ${
+                    className={`ml-4 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all border shadow-sm active:scale-95 whitespace-nowrap ${
                       isUnknown
                         ? isDarkMode 
                             ? 'bg-rose-500/10 text-rose-400 border-rose-500/30 hover:bg-rose-500/20'
